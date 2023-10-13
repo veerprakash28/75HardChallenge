@@ -4,7 +4,7 @@ const Header = () => {
   const githubURL = "https://github.com/veerprakash28";
   return (
     <>
-      <div className="flex items-end px-6 py-4">
+      <div className="flex items-end px-6 py-4 border-b border-blueGray-200 mb-5">
         <h1 className="font-bold">
           <span className="text-6xl sm:text-8xl mr-1 sm:mr-2 text-primary">
             75
