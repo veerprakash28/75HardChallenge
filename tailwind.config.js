@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require("tailwindcss/colors");
+import colors from "tailwindcss/colors";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -15,11 +15,7 @@ export default {
         current: "currentColor",
         black: "#000",
         white: "#fff",
-        bluegray: colors.blueGray,
-        coolgray: colors.coolGray,
         gray: colors.gray,
-        truegray: colors.trueGray,
-        warmgray: colors.warmGray,
         red: colors.red,
         orange: colors.orange,
         amber: colors.amber,
