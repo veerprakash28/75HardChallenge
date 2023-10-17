@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RulesModal from "./RulesModal";
 import GoalsInput from "./GoalsInput";
+import GoalsList from "./GoalsList";
 
 const StartChallenge = () => {
   const [showModal, setShowModal] = useState(false);
   const [showGoalsInput, setShowGoalsInput] = useState(false);
+  const [goalsList, setGoalsList] = useState([]);
+
+  useEffect(() => {
+    const goals = localStorage.getItem("goals");
+    const parsedGoals = JSON.parse(goals);
+    parsedGoals ? setGoalsList(parsedGoals) : setGoalsList([]);
+  }, [showGoalsInput]);
 
   return (
     <>
-      <div className="flex items-center justify-between px-20">
-        {!showGoalsInput && (
+      <div className="flex items-center justify-between lg:px-20 px-8">
+        {!showGoalsInput && goalsList.length === 0 ? (
           <button
             type="button"
             className="text-white bg-gradient-to-br from-primary to-secondary hover:bg-gradient-to-bl font-medium rounded-full text-md px-7 py-2.5 text-center mr-1 mb-2"
@@ -19,6 +27,10 @@ const StartChallenge = () => {
           >
             Set Goals
           </button>
+        ) : (
+          <div className="text-xl font-semibold text-secondary lg:ml-5">
+            Your 75 Days Goals:
+          </div>
         )}
 
         <button
@@ -41,6 +53,9 @@ const StartChallenge = () => {
         {/* Show Rules Modal */}
         {showModal ? <RulesModal setShowModal={setShowModal} /> : null}
       </div>
+
+      {/* Render Goals List when it is stored */}
+      {goalsList.length > 0 && <GoalsList goalsList={goalsList} />}
 
       {/* Show Goals Input Section */}
       {showGoalsInput && <GoalsInput setShowGoalsInput={setShowGoalsInput} />}

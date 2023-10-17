@@ -1,9 +1,30 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 const GoalsInput = ({ setShowGoalsInput }) => {
+  const [goalsText, setGoalsText] = useState("");
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleSetGoals = () => {
+    // Split the goalsText by line breaks to create an array of points
+    const pointsArray = goalsText
+      .split("\n")
+      .filter((point) => point.trim() !== "");
+
+    const currentDate = new Date();
+
+    // Store the points and challenge date in localStorage
+    localStorage.setItem("startDate", currentDate);
+    localStorage.setItem("goals", JSON.stringify(pointsArray));
+
+    setShowConfirmationModal(false);
+    setShowGoalsInput(false);
+  };
+
   return (
     <div className="flex flex-col w-3/5 mx-auto">
-      <div className="mb-4">
+      <div className="relative mb-4 mt-5">
         <textarea
           id="message"
           rows="4"
@@ -12,30 +33,44 @@ const GoalsInput = ({ setShowGoalsInput }) => {
           placeholder="Write your Goals here..."
           onChange={(e) => {
             e.target.rows = Math.ceil(e.target.scrollHeight / 25);
+            setGoalsText(e.target.value);
           }}
         ></textarea>
+        <div className="absolute bottom-2 right-2 text-gray-400 text-xs">
+          *Press Enter for New Goal
+        </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-start">
         <button
           type="button"
-          className="text-secondary border border-2 border-primary hover:bg-primary hover:text-white font-medium rounded-full text-md px-4 py-1.5 text-center mb-2 mr-2"
+          className="text-white bg-secondary border border-2 border-secondary hover:border-secondary hover:bg-white hover:text-secondary font-medium rounded-md text-md px-6 py-2 text-center mb-2"
+          onClick={() => {
+            setShowConfirmationModal(true);
+          }}
+          disabled={goalsText.length <= 0}
+        >
+          Set Goals
+        </button>
+        <button
+          type="button"
+          className="text-gray-400 border border-2 border-gray-400 hover:bg-gray-400 hover:text-white font-medium rounded-md text-md px-4 py-1.5 text-center mb-2 ml-2"
           onClick={() => {
             setShowGoalsInput(false);
           }}
         >
           Cancel
         </button>
-        <button
-          type="button"
-          className="text-white bg-secondary border border-secondary hover:border hover:border-secondary hover:bg-white hover:text-secondary font-medium rounded-full text-md px-6 py-2 text-center mb-2"
-          onClick={() => {
-            setShowGoalsInput(false);
-          }}
-        >
-          Set Goals
-        </button>
       </div>
+
+      {/* Show Confirmation Modal */}
+      {showConfirmationModal ? (
+        <ConfirmationModal
+          setShowModal={setShowConfirmationModal}
+          onConfirm={handleSetGoals}
+          goals={goalsText}
+        />
+      ) : null}
     </div>
   );
 };
