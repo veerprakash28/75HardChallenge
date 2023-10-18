@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const GoalsList = ({ goalsList }) => {
   const [challengeDate, setChallengeDate] = useState("");
@@ -37,18 +37,18 @@ const GoalsList = ({ goalsList }) => {
           {goalsList.map((goal, index) => (
             <li
               key={index}
-              className="mb-2 lg:text-lg text-md bg-gray-300 p-2 text-primary rounded w-full"
+              className="mb-2 lg:text-lg text-md bg-gray-300 p-2 text-primary rounded w-fit"
             >
               {goal}
             </li>
           ))}
         </ul>
 
-        <div className="sm:flex justify-between w-full lg:ml-6 lg:mr-6">
-          <div className="text-gray-500 text-xs font-medium mb-2">
+        <div className="sm:flex justify-between w-full border-b border-blueGray-20 py-4">
+          <div className="text-gray-500 text-xs font-medium mb-2 lg:ml-6">
             Challenge Started on: {challengeDate}
           </div>
-          <div className="text-gray-500 text-xs font-medium mb-2">
+          <div className="text-gray-500 text-xs font-medium mb-2 lg:mr-6">
             Challenge Ends on: {challengeEndDate}
           </div>
         </div>

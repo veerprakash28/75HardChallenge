@@ -16,7 +16,7 @@ const StartChallenge = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between lg:px-20 px-8">
+      <div className="flex items-center justify-between lg:px-20 px-8 ">
         {!showGoalsInput && goalsList.length === 0 ? (
           <button
             type="button"
