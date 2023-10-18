@@ -12,10 +12,13 @@ const GoalsInput = ({ setShowGoalsInput }) => {
       .split("\n")
       .filter((point) => point.trim() !== "");
 
-    const currentDate = new Date();
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(startDate.getDate() + 75); // Add 75 days to the current date
 
-    // Store the points and challenge date in localStorage
-    localStorage.setItem("startDate", currentDate);
+    // Store the points, start date, and end date in localStorage
+    localStorage.setItem("startDate", startDate);
+    localStorage.setItem("endDate", endDate);
     localStorage.setItem("goals", JSON.stringify(pointsArray));
 
     setShowConfirmationModal(false);

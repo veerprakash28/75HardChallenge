@@ -1,5 +1,5 @@
 import Header from "./components/Header/Header";
-import StartChallenge from "./components/StartChallenge/StartChallenge";
+import StartChallenge from "./components/StartChallenge/index";
 
 export default function App() {
   return (
