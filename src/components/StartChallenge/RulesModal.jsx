@@ -94,7 +94,7 @@ const RulesModal = ({ setShowModal }) => {
             </div>
           </div>
           {/*footer*/}
-          <div className="flex items-center justify-end px-6 pt-4 border-t border-solid border-blueGray-200 rounded-b">
+          <div className="flex items-center justify-center lg:justify-end px-6 pt-4 border-t border-solid border-blueGray-200 rounded-b">
             <button
               className="bg-secondary text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
