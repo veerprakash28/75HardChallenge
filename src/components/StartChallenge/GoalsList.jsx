@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
 const GoalsList = ({ goalsList }) => {
   const [challengeDate, setChallengeDate] = useState("");
@@ -33,11 +33,11 @@ const GoalsList = ({ goalsList }) => {
   return (
     <>
       <div className="flex flex-col items-start lg:px-20 px-12">
-        <ul className="lg:ml-4 list-disc text-primary leading-relaxed lg:pl-20 mt-5">
+        <ul className="lg:ml-4 list-disc text-primary leading-relaxed lg:pl-20 mt-5 max-w-full">
           {goalsList.map((goal, index) => (
             <li
               key={index}
-              className="mb-2 lg:text-lg text-md bg-gray-300 p-2 text-primary rounded w-fit"
+              className="mb-2 lg:text-lg text-md bg-gray-300 border-l-secondary border-l-4 p-2 text-primary w-fit pl-3 rounded-r rounded-t"
             >
               {goal}
             </li>
@@ -58,7 +58,7 @@ const GoalsList = ({ goalsList }) => {
 };
 
 GoalsList.propTypes = {
-  goalsList: PropTypes.func.isRequired,
+  goalsList: PropTypes.array.isRequired,
 };
 
 export default GoalsList;

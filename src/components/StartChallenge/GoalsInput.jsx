@@ -20,13 +20,17 @@ const GoalsInput = ({ setShowGoalsInput }) => {
     localStorage.setItem("startDate", startDate);
     localStorage.setItem("endDate", endDate);
     localStorage.setItem("goals", JSON.stringify(pointsArray));
+    localStorage.setItem("lastCompletedDate", startDate);
+    localStorage.setItem("isDayCompleted", false);
 
     setShowConfirmationModal(false);
     setShowGoalsInput(false);
+
+    window.location.reload(false);
   };
 
   return (
-    <div className="flex flex-col w-3/5 mx-auto">
+    <div className="flex flex-col w-4/5 lg:w-3/5 mx-auto">
       <div className="relative mb-4 mt-5">
         <textarea
           id="message"

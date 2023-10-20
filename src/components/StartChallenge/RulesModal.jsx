@@ -5,15 +5,15 @@ const RulesModal = ({ setShowModal }) => {
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
         <div className="bg-white border border-blueGray-200 rounded-lg p-6 max-w-3xl w-4/5 h-1/2 overflow-y-auto">
           {/* Modal content */}
-          <div className="flex justify-between border-b border-blueGray-200 pb-5">
-            <h3 className="text-3xl font-semibold text-primary">
+          <div className="flex items-center justify-between border-b border-blueGray-200 pb-5">
+            <h3 className="text-lg md:text-2xl lg:text-3xl font-semibold text-primary">
               75 Hard Challenge Rules
             </h3>
             <button
               className="text-black opacity-50 hover:opacity-100"
               onClick={() => setShowModal(false)}
             >
-              <span className="bg-transparent text-primary h-6 w-6 text-2xl block">
+              <span className="bg-transparent text-primary w-6 text-2xl block">
                 ×
               </span>
             </button>

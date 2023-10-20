@@ -33,21 +33,23 @@ const ConfirmationModal = ({ setShowModal, onConfirm, goals }) => {
           </div>
           <div className="px-4">
             {/*body*/}
-            <div className="my-4">
+            <div className="my-4 w-full">
               <h3 className="text-lg font-semibold mb-2 text-secondary">
-                Confirm Your 75 Days Goals
+                Confirm Your 75 Days Goals 🚀
               </h3>
-              <ul className="ml-10 list-disc text-blueGray-500 leading-relaxe">
+              <ul className="ml-10 list-disc text-blueGray-500 leading-relaxed">
                 {goalsList.map((goal, index) => (
-                  <li key={index}>{goal}</li>
+                  <li key={index} className="overflow">
+                    {goal}
+                  </li>
                 ))}
               </ul>
             </div>
           </div>
           {/*footer*/}
-          <div className="flex items-center justify-end px-6 pt-4 border-t border-solid border-blueGray-200 rounded-b">
+          <div className="flex items-center justify-center lg:justify-end px-6 pt-4 border-t border-solid border-blueGray-200 rounded-b">
             <button
-              className="bg-secondary text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              className="bg-secondary hover:bg-primary text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
               onClick={onConfirm}
             >
