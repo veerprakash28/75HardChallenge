@@ -48,8 +48,13 @@ const StartChallenge = () => {
       </div>
 
       {!showGoalsInput && goalsList.length === 0 && (
-        <div className="flex flex-col items-center justify-center mt-40">
-          <p className="lg:text-lg text-primary font-medium m-4 mb-0 text-center">
+        <div className="flex flex-col items-center justify-center lg:mt-10 mt-6">
+          <img
+            src="src/assets/images/startJourney.png"
+            alt=""
+            className="object-contain h-full w-96"
+          />
+          <p className="lg:text-lg text-primary font-medium text-center">
             You haven&apos;t begun your 75 Hard Challenge yet.
           </p>
           <p className="lg:text-lg text-primary font-medium my-2 text-center">

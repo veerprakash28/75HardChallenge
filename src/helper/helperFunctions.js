@@ -23,6 +23,7 @@ export const getMotivationalQuote = (progress) => {
 };
 
 // Function to validate streak
+// Streak will end if the user is inactive till 23:59 PM of current date
 export const isStreakOngoing = () => {
   const storedStartDate = localStorage.getItem("startDate");
   const startDateObj = new Date(storedStartDate);
