@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import GoalsInput from "./GoalsInput";
 import GoalsList from "./GoalsList";
 import RulesModal from "./RulesModal";
+import { isStreakOngoing } from "../../helper/helperFunctions";
+import img1 from "../../assets/images/start-image.png";
 
 const StartChallenge = () => {
   const [showModal, setShowModal] = useState(false);
   const [showGoalsInput, setShowGoalsInput] = useState(false);
   const [goalsList, setGoalsList] = useState([]);
 
+  isStreakOngoing();
   useEffect(() => {
     const goals = localStorage.getItem("goals");
     const parsedGoals = JSON.parse(goals);
@@ -50,8 +53,8 @@ const StartChallenge = () => {
       {!showGoalsInput && goalsList.length === 0 && (
         <div className="flex flex-col items-center justify-center lg:mt-10 mt-6">
           <img
-            src="src/assets/images/startJourney.png"
-            alt=""
+            src={img1}
+            alt="start journey image"
             className="object-contain h-full w-96"
           />
           <p className="lg:text-lg text-primary font-medium text-center">
