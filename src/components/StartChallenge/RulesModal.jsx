@@ -1,113 +1,112 @@
-// eslint-disable-next-line react/prop-types
+import PropTypes from "prop-types";
+import { Clock, ShieldAlert, Award, FileText, CheckCircle } from "lucide-react";
+
 const RulesModal = ({ setShowModal }) => {
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div className="bg-white border border-blueGray-200 rounded-lg p-6 max-w-3xl w-4/5 h-1/2 overflow-y-auto">
-          {/* Modal content */}
-          <div className="flex items-center justify-between border-b border-blueGray-200 pb-5">
-            <h3 className="text-lg md:text-2xl lg:text-3xl font-semibold text-primary">
+      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 select-none animate-fadeIn">
+        <div className="bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 max-w-2xl w-11/12 shadow-2xl flex flex-col justify-between max-h-[85vh]">
+          {/* Modal Header */}
+          <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+            <h3 className="text-xl font-extrabold text-primary flex items-center gap-2">
+              <FileText className="w-5 h-5 text-secondary" />
               75 Hard Challenge Rules
             </h3>
             <button
-              className="text-black opacity-50 hover:opacity-100"
+              className="text-gray-400 hover:text-primary transition text-2xl font-bold p-1 leading-none"
               onClick={() => setShowModal(false)}
             >
-              <span className="bg-transparent text-primary w-6 text-2xl block">
-                ×
-              </span>
+              &times;
             </button>
           </div>
-          <div className="px-4">
-            {/*body*/}
-            <div className="my-4">
-              <h3 className="text-lg font-semibold mb-2 text-secondary">
-                Duration
-              </h3>
-              <ul className="ml-6 list-disc text-blueGray-500 leading-relaxe">
-                <li>
-                  The Challenge will last for a period of 75 consecutive days
-                </li>
-              </ul>
+
+          {/* Modal Body (Scrollable) */}
+          <div className="py-5 overflow-y-auto space-y-5 pr-1 text-left">
+            {/* Rule 1 */}
+            <div className="flex gap-3.5 items-start">
+              <div className="bg-primary/10 text-primary p-2 rounded-xl flex-shrink-0">
+                <Clock className="w-4.5 h-4.5" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-sm font-extrabold text-primary">Challenge Duration</h4>
+                <p className="text-xs font-semibold text-secondary leading-relaxed">
+                  The challenge must be followed for **75 consecutive days** without exception.
+                </p>
+              </div>
             </div>
 
-            <div className="my-4">
-              <h3 className="text-lg font-semibold mb-2 text-secondary">
-                Goal Submission
-              </h3>
-              <ul className="ml-6 list-disc text-blueGray-500 leading-relaxe">
-                <li>
-                  Participants must submit their set of goals for the entire
-                  75-day period at the start of the Challenge
-                </li>
-                <li>
-                  Once goals are submitted, they cannot be changed during the
-                  Challenge
-                </li>
-              </ul>
+            {/* Rule 2 */}
+            <div className="flex gap-3.5 items-start">
+              <div className="bg-primary/10 text-primary p-2 rounded-xl flex-shrink-0">
+                <CheckCircle className="w-4.5 h-4.5" />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-extrabold text-primary">Daily Habits Checklist</h4>
+                <p className="text-xs font-semibold text-secondary leading-relaxed mb-1">
+                  You commit to completing the following actions every single day:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold text-primary">
+                  <div className="bg-gray-50 border border-gray-100 p-2.5 rounded-xl flex items-center gap-2">
+                    🏋️‍♂️ Two 45-min workouts (one outdoor)
+                  </div>
+                  <div className="bg-gray-50 border border-gray-100 p-2.5 rounded-xl flex items-center gap-2">
+                    💧 Drink 4 liters of water
+                  </div>
+                  <div className="bg-gray-50 border border-gray-100 p-2.5 rounded-xl flex items-center gap-2">
+                    📖 Read 10 pages of non-fiction
+                  </div>
+                  <div className="bg-gray-50 border border-gray-100 p-2.5 rounded-xl flex items-center gap-2">
+                    🍎 Stick to diet & zero alcohol
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="my-4">
-              <h3 className="text-lg font-semibold mb-2 text-secondary">
-                Progress Tracking
-              </h3>
-              <ul className="ml-6 list-disc text-blueGray-500 leading-relaxe">
-                <li>
-                  Participants are required to log in to the Challenge website
-                  daily to mark their progress for the day as completed
-                </li>
-                <li>Progress can be tracked using a visual progress bar</li>
-              </ul>
+            {/* Rule 3 */}
+            <div className="flex gap-3.5 items-start">
+              <div className="bg-orange-50 text-orange-600 p-2 rounded-xl flex-shrink-0 border border-orange-100">
+                <ShieldAlert className="w-4.5 h-4.5" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-sm font-extrabold text-primary">Strict Failure Consequence</h4>
+                <p className="text-xs font-semibold text-secondary leading-relaxed">
+                  If you fail to check off and log even a single habit by the end of the day, your streak breaks. All progress will clear, and you must start over from **Day 1**.
+                </p>
+              </div>
             </div>
 
-            <div className="my-4">
-              <h3 className="text-lg font-semibold mb-2 text-secondary">
-                Challenge Interruption
-              </h3>
-              <ul className="ml-6 list-disc text-blueGray-500 leading-relaxe">
-                <li>
-                  If a participant fails to mark a day as completed within the
-                  24-hour timeframe, the Challenge for that day is considered
-                  skipped
-                </li>
-                <li>
-                  Skipping a day during the 75-day period will result in the
-                  participant&apos;s Challenge being halted
-                </li>
-                <li>
-                  In the event of a skipped day, all goals will be reset, and
-                  the participant must start the Challenge from the beginning
-                </li>
-              </ul>
-            </div>
-
-            <div className="my-4">
-              <h3 className="text-lg font-semibold mb-2 text-secondary">
-                Timer and Goal Completion
-              </h3>
-              <ul className="ml-6 list-disc text-blueGray-500 leading-relaxe">
-                <li>
-                  Participants have a 24-hour window each day to mark their
-                  daily goal as completed
-                </li>
-              </ul>
+            {/* Rule 4 */}
+            <div className="flex gap-3.5 items-start">
+              <div className="bg-primary/10 text-primary p-2 rounded-xl flex-shrink-0">
+                <Award className="w-4.5 h-4.5" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-sm font-extrabold text-primary">Goal Submission</h4>
+                <p className="text-xs font-semibold text-secondary leading-relaxed">
+                  You define your specific goals list at the start of the challenge. Once set, your checklist is locked and cannot be edited.
+                </p>
+              </div>
             </div>
           </div>
-          {/*footer*/}
-          <div className="flex items-center justify-center lg:justify-end px-6 pt-4 border-t border-solid border-blueGray-200 rounded-b">
+
+          {/* Modal Footer */}
+          <div className="flex items-center justify-end pt-4 border-t border-gray-100">
             <button
-              className="bg-secondary text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/95 text-white text-sm font-semibold shadow-md shadow-primary/10 transition w-full sm:w-auto"
               type="button"
               onClick={() => setShowModal(false)}
             >
-              Got it!
+              Got it, let&apos;s do this! 💪
             </button>
           </div>
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>
   );
+};
+
+RulesModal.propTypes = {
+  setShowModal: PropTypes.func.isRequired,
 };
 
 export default RulesModal;

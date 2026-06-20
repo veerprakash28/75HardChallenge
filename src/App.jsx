@@ -17,9 +17,41 @@ export default function App() {
   }, [startDate]);
 
   const handleReset = () => {
+    const previousGoals = localStorage.getItem("goals");
     localStorage.clear();
+    if (previousGoals) {
+      localStorage.setItem("goals", previousGoals);
+    }
     setShowResetModal(false);
     window.location.reload();
+  };
+
+  const handleResume = (skippedDays) => {
+    const storedStartDate = localStorage.getItem("startDate");
+    const storedEndDate = localStorage.getItem("endDate");
+    if (storedStartDate && storedEndDate) {
+      const startDateObj = new Date(storedStartDate);
+      const endDateObj = new Date(storedEndDate);
+      const msToShift = skippedDays * 24 * 60 * 60 * 1000;
+
+      const newStartDate = new Date(startDateObj.getTime() + msToShift);
+      const newEndDate = new Date(endDateObj.getTime() + msToShift);
+
+      localStorage.setItem("startDate", newStartDate.toISOString());
+      localStorage.setItem("endDate", newEndDate.toISOString());
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      localStorage.setItem("lastCompletedDate", yesterday.toISOString());
+      localStorage.setItem("isDayCompleted", "false");
+
+      const goals = JSON.parse(localStorage.getItem("goals") || "[]");
+      const initialChecked = goals.map(() => false);
+      localStorage.setItem("checkedGoals", JSON.stringify(initialChecked));
+
+      setShowResetModal(false);
+      window.location.reload();
+    }
   };
 
   const shouldRenderProgressBar = startDate && endDate;
@@ -27,11 +59,14 @@ export default function App() {
   return (
     <>
       <Header />
-      <StartChallenge />
-      {shouldRenderProgressBar && (
+      {shouldRenderProgressBar ? (
         <ProgressBar startDate={startDate} endDate={endDate} />
+      ) : (
+        <StartChallenge />
       )}
-      {showResetModal && <ResetModal onConfirm={handleReset} />}
+      {showResetModal && (
+        <ResetModal onReset={handleReset} onResume={handleResume} />
+      )}
     </>
   );
 }

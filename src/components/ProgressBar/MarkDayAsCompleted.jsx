@@ -3,49 +3,50 @@ import PropTypes from "prop-types";
 const MarkDayAsCompleted = ({ setShowModal, onConfirm }) => {
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div className="flex flex-col justify-between bg-white border border-blueGray-200 rounded-lg p-6 max-w-2xl w-4/5 h-2/5 overflow-y-auto">
-          {/* Modal content */}
-          <div className="flex items-center justify-between border-b border-blueGray-200 pb-5">
-            <h3 className="text-md md:text-xl lg:text-3xl font-semibold text-primary">
-              Mark Your Day As Completed!
+      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 select-none animate-fadeIn">
+        <div className="bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 max-w-md w-11/12 shadow-2xl space-y-4">
+          {/* Modal Header */}
+          <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+            <h3 className="text-xl font-extrabold text-primary">
+              Mark Day Completed? 🎉
             </h3>
             <button
-              className="text-black opacity-50 hover:opacity-100"
+              className="text-gray-400 hover:text-primary transition text-2xl font-bold p-1 leading-none"
               onClick={() => setShowModal(false)}
             >
-              <span className="bg-transparent text-primary w-6 text-2xl block">
-                ×
-              </span>
+              &times;
             </button>
           </div>
 
-          <div className="px-4">
-            {/* Body */}
-            <div className="my-4">
-              <h3 className="text-md lg:text-xl font-semibold mb-2 text-secondary">
-                Congratulations! 🌟
-              </h3>
-              <p className="text-primary text-sm lg:text-base">
-                Well done on completing another day of your challenge! Remember,
-                challenges are about discipline and commitment, so stay true to
-                your goals. Your dedication will lead to amazing results! 🚀
-              </p>
-            </div>
+          {/* Modal Body */}
+          <div className="space-y-2">
+            <h4 className="text-sm font-bold text-secondary uppercase tracking-wider">
+              Congratulations! 🌟
+            </h4>
+            <p className="text-sm font-semibold text-primary leading-relaxed">
+              Well done on completing all your habits for today! Remember, challenges are about consistent discipline. Your dedication will lead to incredible results! 🚀
+            </p>
           </div>
-          {/* Footer */}
-          <div className="flex items-center justify-center md:justify-end px-6 pt-4 border-t border-solid border-blueGray-200 rounded-b">
+
+          {/* Modal Footer */}
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
             <button
-              className="bg-secondary text-white active:bg-emerald-600 font-bold uppercase text-sm px-3 py-2 lg:px-6 lg:py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              className="px-5 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-secondary text-sm font-semibold transition"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/95 text-white text-sm font-semibold shadow-md shadow-primary/10 transition"
               type="button"
               onClick={onConfirm}
             >
-              Let&apos;s Do This!
+              Lock In Completion 🚀
             </button>
           </div>
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>
   );
 };
