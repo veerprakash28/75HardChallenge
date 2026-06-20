@@ -12,21 +12,24 @@ const GoalsInput = ({ setShowGoalsInput }) => {
       .split("\n")
       .filter((point) => point.trim() !== "");
 
+    if (pointsArray.length === 0) return;
+
     const startDate = new Date();
     const endDate = new Date();
     endDate.setDate(startDate.getDate() + 75); // Add 75 days to the current date
 
     // Store the points, start date, and end date in localStorage
-    localStorage.setItem("startDate", startDate);
-    localStorage.setItem("endDate", endDate);
+    localStorage.setItem("startDate", startDate.toISOString());
+    localStorage.setItem("endDate", endDate.toISOString());
     localStorage.setItem("goals", JSON.stringify(pointsArray));
-    localStorage.setItem("lastCompletedDate", startDate);
-    localStorage.setItem("isDayCompleted", false);
+    localStorage.setItem("lastCompletedDate", startDate.toISOString());
+    localStorage.setItem("isDayCompleted", "false");
+    localStorage.setItem("daysCompleted", "0");
 
     setShowConfirmationModal(false);
     setShowGoalsInput(false);
 
-    window.location.reload(false);
+    window.location.reload();
   };
 
   return (
@@ -55,7 +58,7 @@ const GoalsInput = ({ setShowGoalsInput }) => {
           onClick={() => {
             setShowConfirmationModal(true);
           }}
-          disabled={goalsText.length <= 0}
+          disabled={goalsText.split("\n").filter((p) => p.trim() !== "").length === 0}
         >
           Set Goals
         </button>

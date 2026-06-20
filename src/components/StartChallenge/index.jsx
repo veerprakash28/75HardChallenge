@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import GoalsInput from "./GoalsInput";
 import GoalsList from "./GoalsList";
 import RulesModal from "./RulesModal";
-import { isStreakOngoing } from "../../helper/helperFunctions";
 import img1 from "../../assets/images/start-image.png";
 
 const StartChallenge = () => {
@@ -10,7 +9,6 @@ const StartChallenge = () => {
   const [showGoalsInput, setShowGoalsInput] = useState(false);
   const [goalsList, setGoalsList] = useState([]);
 
-  isStreakOngoing();
   useEffect(() => {
     const goals = localStorage.getItem("goals");
     const parsedGoals = JSON.parse(goals);

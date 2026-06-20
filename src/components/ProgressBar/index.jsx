@@ -8,40 +8,35 @@ const ProgressBar = ({ startDate, endDate }) => {
   // State variables
   const [progress, setProgress] = useState(0);
   const [lastActive, setLastActive] = useState("");
-  const [daysCompleted, setDaysCompleted] = useState(0);
+  const [daysCompleted, setDaysCompleted] = useState(() => {
+    return parseInt(localStorage.getItem("daysCompleted") || "0", 10);
+  });
   const [showMarkDayAsCompletedModal, setShowMarkDayAsCompletedModal] =
     useState(false);
 
-  const [lastCompletedDate, setLastCompletedDate] = useState(
-    new Date(localStorage.getItem("lastCompletedDate"))
-  );
+  const [lastCompletedDate, setLastCompletedDate] = useState(() => {
+    const dateStr = localStorage.getItem("lastCompletedDate");
+    return dateStr ? new Date(dateStr) : new Date();
+  });
 
   const storedIsDayCompleted =
     localStorage.getItem("isDayCompleted") === "true";
   const [isDayCompleted, setIsDayCompleted] = useState(storedIsDayCompleted);
   const [quote, setQuote] = useState("");
 
-  // Calculate progress, days completed, and motivational quote
+  // Calculate progress and motivational quote based on daysCompleted
   useEffect(() => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const lastActiveStreak = lastCompletedDate;
-
-    const totalDuration = end - start;
-    const elapsedDuration = lastActiveStreak - start;
-
-    const percentage = (elapsedDuration / totalDuration) * 100;
-    const daysCompleted = Math.floor(elapsedDuration / (1000 * 60 * 60 * 24));
-
-    setDaysCompleted(daysCompleted);
+    const percentage = Math.min(100, (daysCompleted / 75) * 100);
     setProgress(percentage);
 
     const motivationalQuote = getMotivationalQuote(percentage);
     setQuote(motivationalQuote);
-  }, [startDate, endDate, lastCompletedDate]);
+  }, [daysCompleted]);
 
   // Check if the current day is marked as completed
   useEffect(() => {
+    if (daysCompleted >= 75) return;
+
     const currentDate = new Date();
     const lastCompleted = lastCompletedDate;
 
@@ -49,19 +44,25 @@ const ProgressBar = ({ startDate, endDate }) => {
       currentDate.toLocaleDateString() === lastCompleted.toLocaleDateString();
 
     if (!isSameDay) {
-      localStorage.setItem("isDayCompleted", false);
+      localStorage.setItem("isDayCompleted", "false");
       setIsDayCompleted(false);
     }
-  }, [lastCompletedDate, isDayCompleted]);
+  }, [lastCompletedDate, isDayCompleted, daysCompleted]);
 
   // Mark the current day as completed
   const handleMarkDayAsCompleted = () => {
-    if (!isDayCompleted) {
+    if (!isDayCompleted && daysCompleted < 75) {
       const currentDate = new Date();
+      const nextDaysCompleted = daysCompleted + 1;
+
       setLastCompletedDate(currentDate);
-      localStorage.setItem("lastCompletedDate", currentDate);
-      localStorage.setItem("isDayCompleted", true);
+      localStorage.setItem("lastCompletedDate", currentDate.toISOString());
+      localStorage.setItem("isDayCompleted", "true");
       setIsDayCompleted(true);
+
+      setDaysCompleted(nextDaysCompleted);
+      localStorage.setItem("daysCompleted", nextDaysCompleted.toString());
+
       setShowMarkDayAsCompletedModal(false);
     }
   };
@@ -84,13 +85,19 @@ const ProgressBar = ({ startDate, endDate }) => {
           <div className="sm:text-xl font-semibold text-secondary lg:ml-5 mt-5">
             Your Progress as of: {lastActive}
           </div>
-          {!isDayCompleted && (
-            <div
-              className="text-sm font-medium text-primary mt-5 cursor-pointer text-right"
-              onClick={() => setShowMarkDayAsCompletedModal(true)}
-            >
-              Mark Your Day as Completed
+          {daysCompleted >= 75 ? (
+            <div className="text-sm font-bold text-emerald-600 mt-5 lg:mr-5 flex items-center gap-1">
+              🏆 Challenge Completed! 🎉
             </div>
+          ) : (
+            !isDayCompleted && (
+              <div
+                className="text-sm font-medium text-primary mt-5 cursor-pointer text-right hover:text-secondary transition"
+                onClick={() => setShowMarkDayAsCompletedModal(true)}
+              >
+                Mark Your Day as Completed
+              </div>
+            )
           )}
         </div>
 
@@ -111,7 +118,13 @@ const ProgressBar = ({ startDate, endDate }) => {
         <div className="font-bold text-primary text-lg">
           {daysCompleted} / 75
         </div>
-        <div className="font-md text-secondary text-center">{quote}</div>
+        {daysCompleted >= 75 ? (
+          <div className="font-bold text-emerald-600 text-center mt-2 text-xl animate-bounce">
+            Incredible! You completed the 75 Hard Challenge! 🏆🎉💪
+          </div>
+        ) : (
+          <div className="font-md text-secondary text-center">{quote}</div>
+        )}
 
         {showMarkDayAsCompletedModal && (
           <MarkDayAsCompleted

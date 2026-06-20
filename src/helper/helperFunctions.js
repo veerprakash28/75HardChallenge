@@ -23,18 +23,22 @@ export const getMotivationalQuote = (progress) => {
 };
 
 // Function to validate streak
-// Streak will end if the user is inactive till 23:59 PM of current date
+// Streak is ongoing if the user has completed at least as many days as calendar days elapsed since start
 export const isStreakOngoing = () => {
   const storedStartDate = localStorage.getItem("startDate");
+  if (!storedStartDate) return true;
+
   const startDateObj = new Date(storedStartDate);
   const todayDateObj = new Date();
 
-  // Calculate the time difference in milliseconds
-  const timeDifference = todayDateObj - startDateObj;
+  // Calculate calendar days elapsed since start date
+  const startDay = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+  const todayDay = new Date(todayDateObj.getFullYear(), todayDateObj.getMonth(), todayDateObj.getDate());
 
-  // Calculate the maximum allowed time difference for the streak to be considered ongoing (24 hours in milliseconds)
-  const allowedTimeDifference = 24 * 60 * 60 * 1000;
+  const timeDiff = todayDay - startDay;
+  const elapsedDays = Math.max(0, Math.round(timeDiff / (1000 * 60 * 60 * 24)));
 
-  // Compare the time difference with the allowed time difference
-  return timeDifference <= allowedTimeDifference;
+  const daysCompleted = parseInt(localStorage.getItem("daysCompleted") || "0", 10);
+
+  return daysCompleted >= elapsedDays;
 };
